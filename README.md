@@ -1,6 +1,5 @@
 # AWS SSM Parameter Rust Caching Client
 
-**UNDER DEVELOPMENT - NOT YET USABLE**
 <!---
 ![CI](https://github.com/bassmanitram/aws-ssm-parameter-cache-rust/actions/workflows/ci.yml/badge.svg)
 -->
