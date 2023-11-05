@@ -4,7 +4,6 @@
 <!---
 ![CI](https://github.com/bassmanitram/aws-ssm-parameter-cache-rust/actions/workflows/ci.yml/badge.svg)
 -->
-![CI](https://github.com/bassmanitram/aws-ssm-parameter-cache-rust/actions/workflows/ci.yml/badge.svg)
 
 ## DISCLAIMER
 
