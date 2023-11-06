@@ -22,7 +22,7 @@
 //!
 //!     let parameter_name = "service/parameter";
 //!
-//!     match cache.get_parameter(parameter_name.to_string()).send().await {
+//!     match cache.get_parameter(parameter_name).send().await {
 //!         Ok(parameter_value) => {
 //!             // do something
 //!         }

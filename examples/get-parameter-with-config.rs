@@ -15,7 +15,7 @@ async fn main() {
     let parameter_name = "service/parameter";
 
     match cache
-        .get_parameter(parameter_name.to_string())
+        .get_parameter(parameter_name)
         .force_refresh() // force the value to be fetched from AWS and updated in the cache
         .send()
         .await

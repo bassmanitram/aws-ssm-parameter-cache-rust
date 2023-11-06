@@ -22,7 +22,7 @@ async fn main() {
         .await
         .lock() // acquire cache lock
         .unwrap()
-        .get_parameter(parameter_name.to_string())
+        .get_parameter(parameter_name)
         .send()
         .await
     {

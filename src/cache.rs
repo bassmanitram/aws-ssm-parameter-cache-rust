@@ -43,20 +43,20 @@ impl ParameterCache {
     /// Returns a builder for getting parameter strings.
     ///
     /// Retrieve the parameter value with send()
-    pub fn get_parameter(&mut self, parameter_name: String) -> GetParameterStringBuilder {
+    pub fn get_parameter<'a,'b: 'a>(&'a mut self, parameter_name: &'b str) -> GetParameterStringBuilder {
         GetParameterStringBuilder::new(self, parameter_name)
     }
 }
 
 /// A builder for the get_parameter method.
-pub struct GetParameterStringBuilder<'a> {
+pub struct GetParameterStringBuilder<'a,'b> {
     parameter_cache: &'a mut ParameterCache,
-    parameter_name: String,
+    parameter_name: &'b str,
     force_refresh: bool,
 }
 
-impl<'a> GetParameterStringBuilder<'a> {
-    pub fn new(parameter_cache: &'a mut ParameterCache, parameter_name: String) -> Self {
+impl<'a,'b> GetParameterStringBuilder<'a,'b> {
+    pub fn new(parameter_cache: &'a mut ParameterCache, parameter_name: &'b str) -> Self {
         GetParameterStringBuilder {
             parameter_cache,
             parameter_name,
@@ -84,7 +84,7 @@ impl<'a> GetParameterStringBuilder<'a> {
     /// Values are stored in the cache with the cache_item_ttl from the CacheConfig.
     pub async fn send(&mut self) -> Result<String, SdkError<GetParameterError>> {
         if !self.force_refresh {
-            if let Some(cache_item) = self.parameter_cache.cache.get(&self.parameter_name) {
+            if let Some(cache_item) = self.parameter_cache.cache.get(self.parameter_name) {
                 if !cache_item.is_expired() {
                     return Ok(cache_item.value.clone());
                 }
@@ -99,7 +99,7 @@ impl<'a> GetParameterStringBuilder<'a> {
                 );
                 self.parameter_cache
                     .cache
-                    .put(self.parameter_name.clone(), cache_item);
+                    .put(self.parameter_name.to_string(), cache_item);
                 Ok(parameter_value)
             }
             Err(e) => Err(e),
@@ -111,7 +111,7 @@ impl<'a> GetParameterStringBuilder<'a> {
             .parameter_cache
             .client
             .get_parameter()
-            .name(self.parameter_name.clone())
+            .name(self.parameter_name)
             .send()
             .await
         {
@@ -132,7 +132,7 @@ mod tests {
         let mock_ssm_client = get_mock_ssm_client();
         let mut parameter_cache = ParameterCache::new(mock_ssm_client);
 
-        let builder = GetParameterStringBuilder::new(&mut parameter_cache, "service/parameter".to_string());
+        let builder = GetParameterStringBuilder::new(&mut parameter_cache, "service/parameter");
 
         assert_eq!(builder.parameter_name, "service/parameter");
         assert!(!builder.force_refresh);
@@ -143,7 +143,7 @@ mod tests {
         let mock_ssm_client = get_mock_ssm_client();
         let mut parameter_cache = ParameterCache::new(mock_ssm_client);
 
-        let builder = GetParameterStringBuilder::new(&mut parameter_cache, "service/parameter".to_string())
+        let builder = GetParameterStringBuilder::new(&mut parameter_cache, "service/parameter")
             .force_refresh();
 
         assert_eq!(builder.parameter_name, "service/parameter");
