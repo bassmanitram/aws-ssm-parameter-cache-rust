@@ -43,7 +43,7 @@ impl ParameterCache {
     /// Returns a builder for getting parameter strings.
     ///
     /// Retrieve the parameter value with send()
-    pub fn get_parameter<'a,'b: 'a>(&'a mut self, parameter_name: &'b str) -> GetParameterStringBuilder {
+    pub fn get_parameter<'a,'b>(&'a mut self, parameter_name: &'b str) -> GetParameterStringBuilder<'a,'b> {
         GetParameterStringBuilder::new(self, parameter_name)
     }
 }
