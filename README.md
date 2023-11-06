@@ -1,15 +1,14 @@
 # AWS SSM Parameter Rust Caching Client
 
-**UNDER DEVELOPMENT - NOT YET USABLE**
-
-[CI](https://github.com/bassmanitram/aws-ssm-parameter-cache-rust/actions/workflows/ci.yml/badge.svg)
+<!---
+![CI](https://github.com/bassmanitram/aws-ssm-parameter-cache-rust/actions/workflows/ci.yml/badge.svg)
+-->
 
 ## DISCLAIMER
 
 This is an out-and-out rip-off of Adam Quigly's work on [aws-secretsmanager-cache-rust](https://github.com/adamjq/aws-secretsmanager-cache-rust).
 In time, Adam may wish to merge my entirely dodgy sed-editted facimile of his excellent work and
-thus remove the stain on the world that this un-ashamed grasp for reflected glory that this minor
-tweak to his work represents.
+thus remove the stain on the world that this un-ashamed grasp for reflected glory represents.
 
 In the mean time, I bow to his generosity of spirit allowing me to conterfeit his art for my own purposes!
 
